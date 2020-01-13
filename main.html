@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>NHL playoff bracket maker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- pour mobile -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+  <!-- <link href="navbar.css" rel="stylesheet"> -->
+  <!-- <link href="dropdown.css" rel="stylesheet"> -->
+  <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <script src="mainscript.js"></script>
+</head>
+<body onload="isChecked1();isChecked4()">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">NHL bracket maker - ed. 2018</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <!-- <li class="active" title="Home"><a href="#"><i class="fas fa-home"></i></a></li> -->
+          <li class="" title="Options">
+            <div class="row">
+               <button type="button" class="navbtn" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></button>
+               <ul class="dropdown-menu">
+                 <h6 class="dropdown-header middle" style="font-size:14px;">Options</h6>
+                 <li><a href="#" class="grey" ><input type="checkbox" id="chkNum" onclick="isChecked1()"/>&nbsp;Number of Games</a></li>
+                 <li><a href="#" class="grey" ><input type="checkbox" id="chkRand" checked onclick="isChecked2()"/>&nbsp;Random</a></li>
+                 <li><a href="#" class="grey" ><input type="checkbox" id="chkStats" checked onclick="isChecked3()"/>&nbsp;Head to head stats</a></li>
+                 <li><a href="#" class="grey" ><input type="checkbox" id="chkSmythe"  onclick="isChecked4()"/>&nbsp;Conn Smythe winner</a></li>
+               </ul>
+             </div>
+          </li>
+          <li class="" title="Print/Save as PDF">
+            <button type="button" class="navbtn" onclick="printOrNotToPrint()"><i class="glyphicon glyphicon-print"></i></button>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+<div class="container-fluid" style="padding:0px;">
+<div class="panel panel-default" style="margin:15px;">
+  <div class="panel-heading title" id="bracketName">
+  </div>
+<div class="panel-body">
+<div class="wrapper">
+  <!----------------------------- div one ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+
+      <div class="panel-body middle" style="font-weight: bold;">
+        First Round
+      </div>
+    </div>
+    <!-- horizontal ligns for round one -->
+    <div class="connectors">
+      <div class="top-line1"></div>
+      <div class="top-line2"></div>
+      <div class="top-line3"></div>
+      <div class="top-line4"></div>
+    </div>
+    <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="nsh" src="img/nsh.jpg" alt="Avatar" onclick="w1(0);">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="col" src="img/col.jpg" alt="Avatar" onclick="w1(1);">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div class="col-md-6 space" id="nshT">1 NSH</div>
+          <div class="col-md-6 space" id="colT">wc COL</div>
+        </div>
+        <div class="row middle center">
+
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd1"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" id="bGroup1" class=" num btn btn-secondary dropdown-toggle dropdown-toggle-split small" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd1')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd1')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd1')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd1')">7</a></li>
+            </ul>
+          </div>
+
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="w1(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats1()"><i class="glyphicon glyphicon-stats" style="weight:10px;"></i></button>
+        </div>
+      </div>
+    </div>
+
+  <div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row middle">
+      <div class="col-md-6">
+        <img class="img" src="img/wpg.jpg" id="wpg" alt="Avatar" onclick="w2(0);">
+      </div>
+      <div class="col-md-6">
+        <img class="img" src="img/min.png" id="min" alt="Avatar" onclick="w2(1);">
+      </div>
+
+    </div>
+    <div class="row middle down">
+      <div class="col-md-6 space" id="wpgT">2 WPG</div>
+      <div class="col-md-6 space" id="minT">3 MIN</div>
+    </div>
+    <div class="row middle center">
+      <div class="btn-group" id="bGroup2">
+        <button type="button" class="disabled btn btn-secondary small num" id="dd2"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+        <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <h6 class="dropdown-header middle">Number of games</h6>
+          <li><a class="middle" value="4" onclick="nbrgames(4,'dd2')">4</a></li>
+          <li><a class="middle" value="5" onclick="nbrgames(5,'dd2')">5</a></li>
+          <li><a class="middle" value="6" onclick="nbrgames(6,'dd2')">6</a></li>
+          <li><a class="middle" value="7" onclick="nbrgames(7,'dd2')">7</a></li>
+        </ul>
+      </div>
+      <button type="button" title="Random" class="btn btn-secondary small random" onclick="w2(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+      <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats2()"><i class="glyphicon glyphicon-stats"></i></button>
+  </div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+  <div class="row middle">
+    <div class="col-md-6">
+      <img class="img" src="img/vgk.jpg" id="vgk" alt="Avatar" onclick="w3(0);">
+    </div>
+    <div class="col-md-6">
+      <img class="img" src="img/lak.jpg" id="lak" alt="Avatar" onclick="w3(1);">
+    </div>
+
+  </div>
+  <div class="row middle down">
+    <div class="col-md-6 space" id="vgkT">1 VGK</div>
+    <div class="col-md-6 space" id="lakT">wc LAK</div>
+  </div>
+  <div class="row middle center">
+    <div class="btn-group" id="bGroup3">
+      <button type="button" class="disabled btn btn-secondary small num" id="dd3"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+      <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <h6 class="dropdown-header middle">Number of games</h6>
+        <li><a class="middle" value="4" onclick="nbrgames(4,'dd3')">4</a></li>
+        <li><a class="middle" value="5" onclick="nbrgames(5,'dd3')">5</a></li>
+        <li><a class="middle" value="6" onclick="nbrgames(6,'dd3')">6</a></li>
+        <li><a class="middle" value="7" onclick="nbrgames(7,'dd3')">7</a></li>
+      </ul>
+    </div>
+    <button type="button" title="Random" class="btn btn-secondary small random" onclick="w3(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+    <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats3()"><i class="glyphicon glyphicon-stats"></i></button>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-body">
+  <div class="row middle">
+    <div class="col-md-6">
+      <img class="img" src="img/ana.jpg" id="ana" alt="Avatar" onclick="w4(0)">
+    </div>
+    <div class="col-md-6">
+      <img class="img" src="img/sjs.jpg" id="sjs" alt="Avatar" onclick="w4(1)">
+    </div>
+
+  </div>
+  <div class="row middle down">
+    <div class="col-md-6 space" id="anaT">2 ANA</div>
+    <div class="col-md-6 space" id="sjsT">3 SJS</div>
+  </div>
+  <div class="row middle center">
+    <div class="btn-group" id="bGroup4">
+      <button type="button" class="disabled btn btn-secondary small num" id="dd4"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+      <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <h6 class="dropdown-header middle">Number of games</h6>
+        <li><a class="middle" value="4" onclick="nbrgames(4,'dd4')">4</a></li>
+        <li><a class="middle" value="5" onclick="nbrgames(5,'dd4')">5</a></li>
+        <li><a class="middle" value="6" onclick="nbrgames(6,'dd4')">6</a></li>
+        <li><a class="middle" value="7" onclick="nbrgames(7,'dd4')">7</a></li>
+      </ul>
+    </div>
+    <button type="button" title="Random" class="btn btn-secondary small random" onclick="w4(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+    <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats4()"><i class="glyphicon glyphicon-stats"></i></button>
+</div>
+</div>
+</div>
+</div>
+<!----------------------------- div two ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        Second Round
+      </div>
+    </div>
+    <!-- vertical ligns for round one -->
+    <div class="connectors">
+      <div class="vert-line1"></div>
+      <div class="vert-line2"></div>
+      <div class="vert-line3"></div>
+    </div>
+
+    <div class="panel panel-default rndTwo">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="w1" src="img/rien.jpg" alt="Avatar" onclick="w5(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="w2" src="img/rien.jpg" alt="Avatar" onclick="w5(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="tw1" class="col-md-6 space">TBD</div>
+          <div id="tw2" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd5"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd5')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd5')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd5')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd5')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="w5(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats5()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="top-line5"></div>
+      <div class="top-line6"></div>
+    </div>
+    <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="w3" src="img/rien.jpg" alt="Avatar" onclick="w6(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="w4" src="img/rien.jpg" alt="Avatar" onclick="w6(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="tw3" class="col-md-6 space">TBD</div>
+          <div id="tw4" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd6"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd6')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd6')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd6')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd6')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="w6(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats6()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <!-- last vertical lign for round 1 -->
+    <div class="connectors">
+      <div class="vert-line4"></div>
+    </div>
+  </div>
+  <!----------------------------- div three ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        Conference Finals
+      </div>
+      <div class="connectors">
+        <div class="vert-line5"></div>
+        <div class="vert-line6"></div>
+      </div>
+    </div>
+    <div class="panel panel-default semi-finals">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="w5" src="img/rien.jpg" alt="Avatar" onclick="w7(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="w6" src="img/rien.jpg" alt="Avatar" onclick="w7(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="tw5" class="col-md-6 space">TBD</div>
+          <div id="tw6" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd7"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd7')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd7')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd7')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd7')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="w7(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats7()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="top-line7"></div>
+    </div>
+  </div>
+  <!----------------------------- div four ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        Stanley cup Finals
+      </div>
+    </div>
+    <img src="img/stanleycup.svg" style="width:142px;height:142px;margin-left:13px;"></img>
+    <div class="panel panel-default finals">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="w7" src="img/rien.jpg" alt="Avatar" onclick="winner(0);">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="e7" src="img/rien.jpg" alt="Avatar" onclick="winner(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="tw7" class="col-md-6 space">TBD</div>
+          <div id="te7" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd8"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd8')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd8')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd8')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd8')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="winner(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats8()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="vert-line7"></div>
+      <div class="vert-line8"></div>
+    </div>
+    <div class="connectors">
+      <div class="vert-line9"></div>
+    </div>
+    <div class="panel panel-default winner">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-12">
+          <img class="winnerImg" id="winner" src="img/rien.jpg" alt="Avatar" onclick="">
+        </div>
+      </div>
+        <div class="row middle down">
+          <div id="twinner" class="col-md-12 space">
+            TBD
+          </div>
+        </div>
+        <div class="row middle center">
+          WINNER
+        </div>
+      </div>
+    </div>
+    <div class="row middle">
+    <img src="img/smythe.jpg" id="smytheImg" style="width:68px;height:100px;"></img>
+  </div>
+  </div>
+  <!----------------------------- div five ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        Conference Finals
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="vert-line10"></div>
+      <div class="vert-line11"></div>
+    </div>
+    <div class="panel panel-default semi-finals">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="e5" src="img/rien.jpg" alt="Avatar" onclick="e7(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="e6" src="img/rien.jpg" alt="Avatar" onclick="e7(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="te5" class="col-md-6 space">TBD</div>
+          <div id="te6" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd9"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button"title="Number of games"  class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd9')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd9')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd9')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd9')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="e7(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats9()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="top-line8"></div>
+    </div>
+  </div>
+  <!----------------------------- div six ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        Second Round
+      </div>
+    </div>
+    <!-- vertical ligns for round one -->
+    <div class="connectors">
+      <div class="vert-line12"></div>
+      <div class="vert-line13"></div>
+      <div class="vert-line14"></div>
+    </div>
+    <div class="panel panel-default rndTwo">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="e1" src="img/rien.jpg" alt="Avatar" onclick="e5(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="e2" src="img/rien.jpg" alt="Avatar" onclick="e5(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="te1" class="col-md-6 space">TBD</div>
+          <div id="te2" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd10"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd10')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd10')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd10')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd10')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="e5(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats10()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="connectors">
+      <div class="top-line10"></div>
+      <div class="top-line11"></div>
+    </div>
+    <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" id="e3" src="img/rien.jpg" alt="Avatar" onclick="e6(0)">
+        </div>
+          <div class="col-md-6">
+            <img class="img" id="e4" src="img/rien.jpg" alt="Avatar" onclick="e6(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div id="te3" class="col-md-6 space">TBD</div>
+          <div id="te4" class="col-md-6 space">TBD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd11"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd11')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd11')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd11')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd11')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="e6(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats11()"><i class="glyphicon glyphicon-stats"></i></button>
+        </div>
+      </div>
+    </div>
+    <!-- last vertical lign for round 1 -->
+    <div class="connectors">
+      <div class="vert-line15"></div>
+    </div>
+  </div>
+  <!----------------------------- div seven ------------------------------------->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-body middle" style="font-weight: bold;">
+        First Round
+      </div>
+    </div>
+    <!-- horizontal ligns for round one -->
+    <div class="connectors">
+      <div class="top-line12"></div>
+      <div class="top-line13"></div>
+      <div class="top-line14"></div>
+      <div class="top-line15"></div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row middle">
+          <div class="col-md-6">
+            <img class="img" src="img/tbl.png" id="tbl" alt="Avatar" onclick="e1(0)">
+          </div>
+          <div class="col-md-6">
+            <img class="img" src="img/njd.jpg" id="njd" alt="Avatar" onclick="e1(1)">
+          </div>
+
+        </div>
+        <div class="row middle down">
+          <div class="col-md-6 space" id="tblT">1 TBL</div>
+          <div class="col-md-6 space" id="njdT">wc NJD</div>
+        </div>
+        <div class="row middle center">
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-secondary small num" id="dd12"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+            <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <h6 class="dropdown-header middle">Number of games</h6>
+              <li><a class="middle" value="4" onclick="nbrgames(4,'dd12')">4</a></li>
+              <li><a class="middle" value="5" onclick="nbrgames(5,'dd12')">5</a></li>
+              <li><a class="middle" value="6" onclick="nbrgames(6,'dd12')">6</a></li>
+              <li><a class="middle" value="7" onclick="nbrgames(7,'dd12')">7</a></li>
+            </ul>
+          </div>
+          <button type="button" title="Random" class="btn btn-secondary small random" onclick="e1(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+          <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats12()"><i class="glyphicon glyphicon-stats"></i></button>
+      </div>
+      </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row middle">
+        <div class="col-md-6">
+          <img class="img" src="img/bos.jpg" id="bos" alt="Avatar" onclick="e2(0)">
+        </div>
+        <div class="col-md-6">
+          <img class="img" src="img/tor.jpg" id="tor" alt="Avatar" onclick="e2(1)">
+        </div>
+
+      </div>
+      <div class="row middle down">
+        <div class="col-md-6 space" id="bosT">2 BOS</div>
+        <div class="col-md-6 space" id="torT">3 TOR</div>
+      </div>
+      <div class="row middle center">
+        <div class="btn-group">
+          <button type="button" class="disabled btn btn-secondary small num" id="dd13"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+          <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <h6 class="dropdown-header middle">Number of games</h6>
+            <li><a class="middle" value="4" onclick="nbrgames(4,'dd13')">4</a></li>
+            <li><a class="middle" value="5" onclick="nbrgames(5,'dd13')">5</a></li>
+            <li><a class="middle" value="6" onclick="nbrgames(6,'dd13')">6</a></li>
+            <li><a class="middle" value="7" onclick="nbrgames(7,'dd13')">7</a></li>
+          </ul>
+        </div>
+        <button type="button" title="Random" class="btn btn-secondary small random" onclick="e2(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+        <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats13()"><i class="glyphicon glyphicon-stats"></i></button>
+    </div>
+    </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row middle">
+      <div class="col-md-6">
+        <img class="img" src="img/wsh.png" id="wsh" alt="Avatar" onclick="e3(0)">
+      </div>
+      <div class="col-md-6">
+        <img class="img" src="img/cbj.jpg" id="cbj" alt="Avatar" onclick="e3(1)">
+      </div>
+
+    </div>
+    <div class="row middle down space">
+      <div class="col-md-6 space" id="wshT">1 WSH</div>
+      <div class="col-md-6 space" id="cbjT">wc CBJ</div>
+    </div>
+    <div class="row middle center">
+      <div class="btn-group">
+        <button type="button" class="disabled btn btn-secondary small num" id="dd14"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+        <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <h6 class="dropdown-header middle">Number of games</h6>
+          <li><a class="middle" value="4" onclick="nbrgames(4,'dd14')">4</a></li>
+          <li><a class="middle" value="5" onclick="nbrgames(5,'dd14')">5</a></li>
+          <li><a class="middle" value="6" onclick="nbrgames(6,'dd14')">6</a></li>
+          <li><a class="middle" value="7" onclick="nbrgames(7,'dd14')">7</a></li>
+        </ul>
+      </div>
+      <button type="button" title="Random" class="btn btn-secondary small random" onclick="e3(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+      <button type="button" title="Head to head stats" class="btn btn-secondary small stats" data-toggle="modal" data-target="#myModal" onclick="stats14()"><i class="glyphicon glyphicon-stats"></i></button>
+  </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row middle">
+      <div class="col-md-6">
+        <img class="img" src="img/pit.png" id="pit" alt="Avatar" onclick="e4(0)">
+      </div>
+      <div class="col-md-6">
+        <img class="img" src="img/phi.jpg" id="phi" alt="Avatar" onclick="e4(1)">
+      </div>
+
+    </div>
+    <div class="row middle down">
+      <div class="col-md-6 space" id="pitT">2 PIT</div>
+      <div class="col-md-6 space" id="phiT">3 PHI</div>
+    </div>
+    <div class="row middle center">
+      <div class="btn-group">
+        <button type="button" class="disabled btn btn-secondary small num" id="dd15"style="font-weight:bold;padding-right:0px;"><i class="fas fa-hashtag"></i></button>
+        <button type="button" title="Number of games" class="btn btn-secondary dropdown-toggle dropdown-toggle-split small num" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <h6 class="dropdown-header middle">Number of games</h6>
+          <li><a class="middle" value="4" onclick="nbrgames(4,'dd15')">4</a></li>
+          <li><a class="middle" value="5" onclick="nbrgames(5,'dd15')">5</a></li>
+          <li><a class="middle" value="6" onclick="nbrgames(6,'dd15')">6</a></li>
+          <li><a class="middle" value="7" onclick="nbrgames(7,'dd15')">7</a></li>
+        </ul>
+      </div>
+      <button type="button" title="Random" class="btn btn-secondary small random" onclick="e4(Math.floor((Math.random() * 2)))"><i class="fas fa-random"></i></button>
+      <button type="button" title="Head to head stats" class="btn btn-secondary small stats"data-toggle="modal" data-target="#myModal" onclick="stats15()"><i class="glyphicon glyphicon-stats"></i></button>
+  </div>
+  </div>
+</div>
+
+  </div>
+
+</div>
+
+<div class="col-md-offset-4 col-md-4" id="smythePanel">
+  <div class="panel panel-default ">
+    <div class="panel-body middle">
+      <div class="row">
+        <label for="smythe">Who do you think is going to win the Conn Smythe trophy (MVP of the playoffs)?</label>
+        <input type="smythe" class="form-control" id="smythe" placeholder="Enter your guess" name="smythe" style="width:75%;display:inline-block;text-align:center">
+
+      </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Head to head statistics</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row" style="margin-bottom:10px;">
+              <div class="col-md-4 middle">
+                <div class="row">
+                  <img class="img" src="img/rien.jpg" alt="Avatar" id="team1">
+                </div>
+                <div class="row" id="team1T">TBD</div>
+              </div>
+              <div class="col-md-4 middle" style="margin-top: 7%;">Factors</div>
+              <div class="col-md-4 middle">
+                <div class="row">
+                  <img class="img" src="img/rien.jpg" alt="Avatar" id="team2">
+                </div>
+                <div class="row" id="team2T">TBD</div>
+              </div>
+            </div>
+            <div class="row odd">
+              <div class="col-md-4 middle" id="goal1">0</div>
+              <div class="col-md-4 middle">Goals for</div>
+              <div class="col-md-4 middle" id="goal2">0</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 middle" id="gagainst1">0</div>
+              <div class="col-md-4 middle">Goals against</div>
+              <div class="col-md-4 middle" id="gagainst2">0</div>
+            </div>
+            <div class="row odd">
+              <div class="col-md-4 middle" id="pp1">0</div>
+              <div class="col-md-4 middle">Power play %</div>
+              <div class="col-md-4 middle" id="pp2">0</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 middle" id="pk1">0</div>
+              <div class="col-md-4 middle">Penalty kill %</div>
+              <div class="col-md-4 middle" id="pk2">0</div>
+            </div>
+            <div class="row odd">
+              <div class="col-md-4 middle" id="place1">0</div>
+              <div class="col-md-4 middle">Placed finished last year</div>
+              <div class="col-md-4 middle" id="place2">0</div>
+            </div>
+            <div class="row" style="font-size: 12px;">*Statistics from the 2017-2018 regular season.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<div class="modal fade" id="notComplete" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Warning</h4>
+        </div>
+        <div class="modal-body">
+          Your bracket is not complete.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</html>
+
+<script>
+  document.getElementById('bracketName').innerHTML=localStorage.getItem("bracketname");
+</script>
